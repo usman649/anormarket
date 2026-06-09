@@ -1,0 +1,36 @@
+# Python kesh fayllari
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual muhit (Virtual Environments)
+venv/
+.venv/
+env/
+ENV/
+
+# Muhit o'zgaruvchilari (Maxfiy ma'lumotlar)
+.env
+.env.local
+.env.*
+!.env.example
+
+# Ma'lumotlar bazasi (Lokal bazalar GitHub'ga chiqmasligi kerak)
+*.sqlite3
+
+# Loyiha sozlamalari va IDE fayllari
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Media va Yuklangan fayllar (User yuklagan rasmlar/fayllar)
+media/
+staticfiles/
+
+# Operatsion tizim fayllari
+.DS_Store
+Thumbs.db

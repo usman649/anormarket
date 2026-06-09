@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biz haqimizda - ANOR MARKET</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-red: #c01c1c; /* Rasmga mosroq qizil rang */
+            --text-dark: #1a1a1a;
+            --text-light: #6b7280;
+            --bg-light: #f4f6f9; /* Orqa fon rangi */
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Header --- */
+        header { padding: 25px 0; background: white; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: var(--primary-red); font-size: 24px; font-weight: 800; text-decoration: none; }
+        .back-home { display: flex; align-items: center; gap: 5px; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 15px; }
+        .back-home:hover { color: var(--primary-red); }
+
+        /* --- Hero Section (Qizil qism) --- */
+        .about-hero {
+            background: var(--primary-red);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 140px 20px; /* Pastdan ko'proq joy tashlaymiz kartochkalar minishi uchun */
+            border-radius: 0 0 40px 40px;
+        }
+        .about-hero h1 { font-size: 40px; font-weight: 800; margin-bottom: 15px; }
+        .about-hero p { font-size: 16px; opacity: 0.9; max-width: 650px; margin: 0 auto; line-height: 1.6; }
+
+        /* --- Contact Cards Grid --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: -80px; /* Qizil fonga chiqib turishi uchun manfiy margin */
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .contact-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+
+        .icon-box {
+            width: 65px; height: 65px; margin: 0 auto 20px;
+            background: #fef2f2; color: var(--primary-red);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 28px;
+        }
+
+        .contact-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--text-dark); }
+        .contact-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; margin-bottom: 20px; min-height: 45px;}
+        .contact-value { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-top: auto;}
+
+        /* --- Map Section --- */
+        .map-section {
+            margin: 60px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- Social Media Section --- */
+        .social-section { text-align: center; margin-bottom: 80px; }
+        .social-section h2 { font-size: 26px; font-weight: 800; margin-bottom: 30px; }
+        .social-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+        .social-btn {
+            display: flex; align-items: center; gap: 10px;
+            padding: 14px 28px; border-radius: 12px;
+            text-decoration: none; color: white; font-weight: 600; font-size: 16px;
+            transition: var(--transition);
+        }
+        .social-btn i { font-size: 24px; }
+
+        .btn-tg { background: #0088cc; }
+        .btn-tg:hover { background: #0077b3; transform: translateY(-3px); }
+        .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .btn-ig:hover { transform: translateY(-3px); }
+        .btn-fb { background: #1877f2; }
+        .btn-fb:hover { background: #166fe5; transform: translateY(-3px); }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .about-hero { padding: 60px 20px 100px 20px; }
+            .about-hero h1 { font-size: 32px; }
+            .map-container { height: 300px; }
+        }
+
+        @media (max-width: 600px) {
+            .contact-grid { grid-template-columns: 1fr; margin-top: -50px; }
+            .social-btn { width: 100%; justify-content: center; }
+            .about-hero h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="/" class="logo">ANOR MARKET</a>
+            <a href="/" class="back-home"><i class='bx bx-left-arrow-alt'></i> Asosiy sahifaga qaytish</a>
+        </div>
+    </header>
+
+    <section class="about-hero">
+        <div class="container">
+            <h1>Biz bilan bog'laning</h1>
+            <p>Sizga yordam berishdan doimo xursandmiz. Taklif, shikoyat yoki savollaringiz bo'lsa, quyidagi ma'lumotlar orqali biz bilan aloqaga chiqing.</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="icon-box"><i class='bx bx-phone-call'></i></div>
+                <h3>Telefon raqam</h3>
+                <p>Biz bilan to'g'ridan-to'g'ri bog'lanish uchun qo'ng'iroq qiling.</p>
+                <div class="contact-value">{{ about.phone|default:"+998 00 000-00-00" }}</div>
+            </div>
+
+            <div class="contact-card">
+                <div class="icon-box"><i class='bx bx-map'></i></div>
+                <h3>Manzilimiz</h3>
+                <p>Bizning ofisimizga tashrif buyurishingiz mumkin.</p>
+                <div class="contact-value">{{ about.address|default:"Tashkent, Uzbekistan" }}</div>
+            </div>
+
+            <div class="contact-card">
+                <div class="icon-box"><i class='bx bx-envelope'></i></div>
+                <h3>Elektron pochta</h3>
+                <p>Yozma murojaatlar va tijoriy takliflar uchun email manzilimiz.</p>
+                <div class="contact-value">{{ about.email|default:"info@anormarket.uz" }}</div>
+            </div>
+        </div>
+
+        {% if about.address_url %}
+        <div class="map-section">
+            <div class="map-container">
+                <iframe
+                    src="{{ about.address_url }}"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="social-section">
+            <h2>Bizni ijtimoiy tarmoqlarda kuzating</h2>
+            <div class="social-grid">
+
+                {% if about.telegram %}
+                <a href="https://t.me/{{ about.telegram }}" target="_blank" class="social-btn btn-tg">
+                    <i class='bx bxl-telegram'></i> Telegram
+                </a>
+                {% endif %}
+
+                {% if about.instagram %}
+                <a href="https://instagram.com/{{ about.instagram }}" target="_blank" class="social-btn btn-ig">
+                    <i class='bx bxl-instagram'></i> Instagram
+                </a>
+                {% endif %}
+
+                {% if about.facebook %}
+                <a href="https://facebook.com/{{ about.facebook }}" target="_blank" class="social-btn btn-fb">
+                    <i class='bx bxl-facebook'></i> Facebook
+                </a>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

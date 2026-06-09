@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOR MARKET</title>
+    <!-- Modern Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #B01C1C;
+            --primary-red-hover: #8f1515;
+            --text-dark: #1a1a1a;
+            --text-light: #6b7280;
+            --bg-light: #f3f4f6;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--white); color: var(--text-dark); overflow-x: hidden; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Top Bar --- */
+        .top-bar { background: var(--primary-red); color: white; font-size: 13px; padding: 8px 0; }
+        .top-bar-content { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar-left span { margin-right: 20px; display: inline-flex; align-items: center; gap: 5px; }
+
+        /* --- Header (изображение_7 ga asosan) --- */
+        header { padding: 15px 0; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: white; z-index: 1000; }
+
+        .header-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr auto;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo { color: var(--primary-red); font-size: 28px; font-weight: 800; text-decoration: none; letter-spacing: -1px; }
+
+        .btn-categories {
+            display: flex; align-items: center; gap: 8px; background: #eaecf0;
+            border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer;
+            color: var(--text-dark); transition: var(--transition);
+        }
+        .btn-categories:hover { background: #d0d5dd; }
+
+        /* Search Panel */
+        .search-wrapper { position: relative; width: 100%; max-width: 600px; }
+        .search-wrapper input {
+            width: 100%; padding: 12px 20px 12px 45px;
+            background: var(--bg-light); border: 1px solid transparent;
+            border-radius: 50px; outline: none; font-size: 14px;
+            transition: var(--transition);
+        }
+        .search-wrapper input:focus { background: white; border-color: #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .search-wrapper i {
+            position: absolute; left: 18px; top: 50%;
+            transform: translateY(-50%); color: var(--text-light); font-size: 18px;
+        }
+
+        /* Header Actions Stack (Savat tepada, yurakcha pastda) */
+        .header-actions-stack {
+           display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+        }
+
+        .cart-trigger {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .cart-icon-box { position: relative; display: flex; align-items: center; }
+        .cart-icon-box i { font-size: 32px; color: #1a1a1a; }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            left: -10px;
+            background: var(--primary-red);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .cart-info-text { display: flex; flex-direction: column; line-height: 1.1; }
+        .cart-info-text .label { font-size: 11px; color: var(--text-light); font-weight: 500; }
+        .cart-info-text .count { font-weight: 800; font-size: 16px; color: #000; }
+
+        .wishlist-btn {
+            font-size: 30px;
+            color: var(--text-dark);
+            cursor: pointer;
+            margin-right: 5px;
+            transition: var(--transition);
+        }
+        .wishlist-btn:hover { color: var(--primary-red); }
+
+        /* --- Hero Section --- */
+        .hero { margin: 25px 0; }
+        .hero-banner {
+            height: 380px; border-radius: 30px;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),center/cover;
+            display: flex; align-items: center; padding: 60px;
+        }
+        .hero-banner h1 { color: white; font-size: 48px; font-weight: 800; margin-bottom: 20px; }
+        .btn-shop { background: white; color: var(--primary-red); border: none; padding: 14px 35px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition); }
+        .btn-shop:hover { transform: scale(1.05); }
+
+        /* --- Products Grid --- */
+        .section-head { display: flex; justify-content: space-between; align-items: center; margin: 40px 0 20px; }
+        .section-head h2 { font-size: 26px; font-weight: 800; }
+        .view-all { color: var(--primary-red); text-decoration: none; font-weight: 700; font-size: 14px; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+
+        .product-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            border: 1px solid #f0f0f0; transition: var(--transition);
+            position: relative;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+
+        .img-wrap { width: 100%; ; background: #f9f9f9; display: flex; align-items: center; justify-content: center; position: relative; }
+        .product-img {
+        width: 100%;  object-fit: contain;
+         }
+
+        .tag { position: absolute; top: 15px; left: 15px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; z-index: 2; }
+        .tag-new { background: #eef2ff; color: #2563eb; }
+        .tag-sale { background: #fef2f2; color: #dc2626; }
+
+        .p-details { padding: 20px; }
+        .p-cat { font-size: 12px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
+        .p-name { font-weight: 700; font-size: 16px; text-decoration: none; color: var(--text-dark); display: block; margin: 8px 0; height: 40px; }
+
+        .p-bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
+        .old-pr { display: block; font-size: 13px; color: var(--text-light); text-decoration: line-through; }
+        .cur-pr { font-weight: 800; font-size: 20px; color: var(--text-dark); }
+        .sum { font-size: 14px; font-weight: 400; color: var(--text-light); }
+
+        .btn-add {
+            background: var(--primary-red); color: white; border: none; width: 45px; height: 45px;
+            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; transition: var(--transition);
+        }
+        .btn-add:hover { background: var(--primary-red-hover); transform: rotate(90deg); }
+
+        /* Toast */
+        #toast {
+            position: fixed; bottom: 20px; right: 20px; background: #1f2937; color: white;
+            padding: 12px 25px; border-radius: 10px; display: none; z-index: 2000;
+        }
+
+        @keyframes bump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .bump { animation: bump 0.3s ease-out; }
+        /* --- Balandlikni to'g'rilash va kartochkalarni tekislash --- */
+.product-grid {
+    align-items: stretch; /* Hamma kartochkalarni bir xil balandlikka tortadi */
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Kartochka ichini to'liq egallaydi */
+}
+
+.img-wrap {
+    height: 220px; /* Rasmlar uchun bir xil qat'iy balandlik */
+    overflow: hidden;
+}
+
+.product-img {
+    height: 100%;
+    object-fit: cover; /* Rasmni buzmasdan blokka to'ldiradi */
+}
+
+.p-details {
+    flex-grow: 1; /* Ma'lumotlar qismini cho'zadi */
+    display: flex;
+    flex-direction: column;
+}
+
+.p-name {
+    min-height: 40px; /* Nom qisqa bo'lsa ham joy saqlaydi */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 2 qatordan ko'pini qirqadi */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- Reyting (Yulduzchalar) uchun yangi stil --- */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin: 5px 0 15px;
+    color: #facc15; /* Sariq rang */
+    font-size: 14px;
+}
+.rating span {
+    color: var(--text-light);
+    font-size: 12px;
+    margin-left: 5px;
+}
+.rating i.bx-star {
+    color: #d1d5db; /* Bo'sh yulduzcha rangi */
+}
+
+/* --- Narxlarni pastga yopishtirish --- */
+.p-bottom {
+    margin-top: auto; /* Narx va tugmani har doim eng pastga tushiradi */
+}
+
+.price-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.sum-label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* --- Tugma animatsiyasi va ko'rinishi --- */
+.btn-add {
+    flex-shrink: 0; /* Tugma siqilib qolmasligi uchun */
+}
+        /* Categories Section Styles */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 ta ustun */
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.cat-card {
+    height: 140px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    align-items: flex-end;
+    padding: 15px;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.cat-card span {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.cat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Kichik ekranlar uchun moslashuvchanlik */
+@media (max-width: 1024px) {
+    .categories-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .cat-card { height: 100px; }
+    .cat-card span { font-size: 12px; }
+}
+        /* --- Banner HTML Image Styles --- */
+        .hero-banner {
+            position: relative; /* Ichki elementlarni rasm ustiga joylash uchun */
+            overflow: hidden;
+            background: none !important; /* CSS backgroundni o'chirish */
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Rasmni cho'zmasdan bannerni to'ldiradi */
+            z-index: 1;
+        }
+
+
+
+        .hero-banner > div {
+            position: relative;
+            z-index: 3; /* Matn va tugmani hamma narsadan tepaga chiqaradi */
+        }
+        /* Slider umumiy balandligi */
+.hero-swiper {
+    width: 100%;
+    height: 380px;
+    border-radius: 30px;
+}
+
+/* Nuqtachalar (Pagination) dizayni - изображение_2.png stilida */
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    opacity: 1;
+    transition: var(--transition);
+}
+
+.swiper-pagination-bullet-active {
+    width: 30px; /* Aktiv nuqta uzunchoq bo'ladi */
+    border-radius: 5px;
+    background: var(--white);
+}
+
+.swiper-pagination {
+    bottom: 25px !important; /* Pastdan masofa */
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-bar-left">
+                <span><i class='bx bx-phone'></i> +998 97 476-54-00</span>
+                <span><i class='bx bx-envelope'></i> anormarket@gmail.com</span>
+                <span><i class='bx bx-map'></i> Tashkent, Uzbekistan</span>
+
+            </div>
+            <a href="/about/" class="top-bar-right" style="color: white; text-decoration: none; font-weight: 500;">
+            About Us | Stores | FAQ
+            </a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-grid">
+            <a href="/" class="logo">ANOR MARKET</a>
+            <a href="/category/" class="btn-categories" style="text-decoration: none;">
+                        <i class='bx bx-menu'></i> Categories
+            </a>
+            <form action="/search/" method="post">
+                {% csrf_token %}
+            <div class="search-wrapper">
+                <i class='bx bx-search'></i>
+                <input name="query" type="text" placeholder="Search products...">
+            </div>
+            </form>
+
+            <div class="header-actions-stack">
+                 <i class='bx bx-heart wishlist-btn'></i>
+                <a href="/cart/detail/" class="cart-trigger">
+                    <div class="cart-icon-box">
+                        <i class='bx bx-shopping-bag'></i>
+                        <span class="cart-badge" id="cart-count">{{ cart_total_count }}</span>
+                    </div>
+                    <div class="cart-info-text">
+                        <span class="label"></span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section class="hero">
+    <div class="swiper hero-swiper">
+        <div class="swiper-wrapper">
+            {% for b in banner %}
+            <div class="swiper-slide">
+                <a href="{{ b.link }}" style="text-decoration: none;">
+                    <div class="hero-banner">
+                        <img src="{{ b.image.url }}" alt="{{ b.name }}" class="banner-img">
+                        <div class="banner-overlay"></div>
+                        <div class="hero-content">
+                            <h1>{{ b.name }}</h1>
+                            <button class="btn-shop">Shop Now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- изображение_2.png dagi kabi nuqtachalar -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+        <!-- NEW PRODUCTS -->
+<!-- NEW PRODUCTS -->
+
+        <div class="section-head">
+            <h2>New Products</h2>
+            <a href="/" class="view-all">{{ new_product.count }} items →</a>
+        </div>
+
+<div class="product-grid">
+    {% for p in new_product %}
+        <div class="product-card">
+            <a href="/product/{{ p.id }}/" class="img-wrap">
+                <span class="tag tag-new">NEW</span>
+                <img src="{{ p.image.url }}" class="product-img" alt="{{ p.name }}">
+            </a>
+
+            <div class="p-details">
+                <span class="p-cat">{{ p.description|truncatechars:20 }}</span>
+                <a href="/product/{{ p.id }}/" class="p-name">{{ p.name }}</a>
+
+                <div class="rating">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= p.stars %}
+                            <i class='bx bxs-star'></i>
+                        {% else %}
+                            <i class='bx bx-star'></i>
+                        {% endif %}
+                    {% endfor %}
+                    <span>({{ p.stars|default:0 }})</span>
+                </div>
+
+                <div class="p-bottom">
+                    <div class="price-box">
+                        <span class="cur-pr">{{ p.price }} <span class="sum-label">sum</span></span>
+                    </div>
+                    <form action="/cart/" method="POST" class="ajax-cart-form" style="margin: 0;">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ p.id }}">
+                        <input type="hidden" name="quantity" value="1">
+
+                        <button type="submit" class="btn-add" data-name="{{ p.name }}">
+                            <i class='bx bx-plus'></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+        <!-- ON SALE -->
+        <!-- ON SALE -->
+<!-- ON SALE -->
+<div class="section-head">
+    <h2>On Sale</h2>
+    <a href="/" class="view-all">{{ on_sale.count }} items →</a>
+</div>
+
+<div class="product-grid">
+    {% for o in on_sale %}
+    <div class="product-card">
+        <a href="/product/{{ o.id }}/" class="img-wrap" style="display: block; text-decoration: none;">
+            <span class="tag tag-sale">-20%</span>
+            <img src="{{ o.image.url }}" class="product-img" alt="{{ o.name }}">
+        </a>
+
+        <div class="p-details">
+            <span class="p-cat">{{ o.description|truncatechars:25 }}</span>
+
+            <a href="/product/{{ o.id }}/" class="p-name">{{ o.name }}</a>
+
+            <div class="rating">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= o.stars %}
+                        <i class='bx bxs-star'></i>
+                    {% else %}
+                        <i class='bx bx-star'></i>
+                    {% endif %}
+                {% endfor %}
+                <span>({{ o.stars|default:0 }})</span>
+            </div>
+
+            <div class="p-bottom">
+                <div class="price-box">
+                    <span class="old-pr">{{ o.old_price|default:o.price }} sum</span>
+                    <span class="cur-pr">{{ o.price }} <span class="sum-label">sum</span></span>
+                </div>
+
+                <form action="/cart/" method="POST" style="margin: 0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ o.id }}">
+                    <input type="hidden" name="quantity" value="1">
+
+                    <button type="submit" class="btn-add">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- POPULAR CATEGORIES -->
+<div class="section-head">
+    <h2>Popular</h2>
+    <a href="/category/" class="view-all">All categories <i class='bx bx-chevron-right'></i></a>
+</div>
+
+<div class="categories-grid">
+    {% for c in category %}
+    <a href="/category/" class="cat-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('{{ c.image.url }}');">
+        <span>{{ c.name }}</span>
+    </a>
+    {% endfor %}
+
+</div>
+
+<!-- ALL PRODUCTS SECTION -->
+<div class="section-head">
+    <h2>Products</h2>
+    <a href="/" class="view-all">{{ product.count }} items <i class='bx bx-chevron-right'></i></a>
+</div>
+
+<div class="product-grid">
+    {% for p in product %}
+    <div class="product-card">
+
+        <a href="/product/{{ p.id }}/" class="img-wrap" style="display: block; text-decoration: none;">
+            <img src="{{ p.image.url }}" class="product-img" alt="{{ p.name }}">
+        </a>
+
+        <div class="p-details">
+            <span class="p-cat">{{ p.description|truncatechars:25 }}</span>
+
+            <a href="/product/{{ p.id }}/" class="p-name">{{ p.name }}</a>
+
+            <div class="rating">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= p.stars %}
+                        <i class='bx bxs-star'></i>
+                    {% else %}
+                        <i class='bx bx-star'></i>
+                    {% endif %}
+                {% endfor %}
+                <span>({{ p.stars|default:0 }})</span>
+            </div>
+
+            <div class="p-bottom">
+                <div class="price-box">
+                    <span class="cur-pr">{{ p.price }} <span class="sum-label">sum</span></span>
+                </div>
+
+                <form action="/cart/" method="POST" style="margin: 0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ p.id }}">
+                    <input type="hidden" name="quantity" value="1">
+
+                    <button type="submit" class="btn-add">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    </main>
+
+    <div id="toast">Product added!</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <script>
+    // --- Savat funksiyalari ---
+    let itemsCount = 0;
+
+    function updateCart(name) {
+        itemsCount++;
+        const badge = document.getElementById('cart-count');
+        const itemsText = document.getElementById('cart-items-text');
+
+        badge.innerText = itemsCount;
+        itemsText.innerText = `${itemsCount} items`;
+
+        badge.classList.remove('bump');
+        void badge.offsetWidth;
+        badge.classList.add('bump');
+
+        const toast = document.getElementById('toast');
+        toast.innerText = `Savatga qo'shildi: ${name}`;
+        toast.style.display = 'block';
+
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    }
+
+    // --- Swiper Slider funksiyasi (Yangi qo'shildi) ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const swiper = new Swiper('.hero-swiper', {
+            loop: true, // Cheksiz aylanish
+            autoplay: {
+                delay: 3000, // 3 soniyada almashadi
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            speed: 800, // Almashish silliqligi
+            effect: 'fade', // Rasm yumshoq almashishi uchun (ixtiyoriy)
+            fadeEffect: {
+                crossFade: true
+            }
+        });
+    });
+</script>
+</body>
+</html>

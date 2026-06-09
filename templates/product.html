@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOR MARKET | {{ product.name }}</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #B01C1C;
+            --text-dark: #1a1a1a;
+            --text-light: #6b7280;
+            --bg-light: #f3f4f6;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--white); color: var(--text-dark); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Header (index.html bilan bir xil) --- */
+        header { padding: 15px 0; border-bottom: 1px solid #f0f0f0; background: white; position: sticky; top: 0; z-index: 1000; }
+        .header-grid { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 30px; }
+        .logo { color: var(--primary-red); font-size: 28px; font-weight: 800; text-decoration: none; }
+
+        .btn-categories {
+            display: flex; align-items: center; gap: 8px; background: white;
+            border: 1px solid #ddd; padding: 10px 18px; border-radius: 8px;
+            font-weight: 700; cursor: pointer; color: var(--text-dark);
+        }
+
+        .search-wrapper { position: relative; }
+        .search-wrapper input { width: 100%; padding: 12px 45px; background: var(--bg-light); border: none; border-radius: 50px; outline: none; }
+        .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-light); }
+
+        .header-actions { display: flex; align-items: center; gap: 20px; font-size: 24px; color: #666; }
+
+        /* --- Product Detail Section --- */
+        .breadcrumb { margin: 30px 0; }
+        .back-link { text-decoration: none; color: var(--text-light); display: flex; align-items: center; gap: 5px; font-size: 14px; }
+
+        .product-main { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+
+        /* Image Side */
+        .product-image-container { position: relative; border-radius: 20px; overflow: hidden; background: #f9f9f9; }
+        .product-image-container img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .detail-tag { position: absolute; top: 20px; left: 20px; background: #2563eb; color: white; padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 12px; }
+
+        /* Info Side */
+        .product-info .category { color: var(--primary-red); font-weight: 600; font-size: 14px; margin-bottom: 10px; display: block; }
+        .product-info h1 { font-size: 36px; font-weight: 800; margin-bottom: 15px; }
+
+        .rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
+        .stars { color: #facc15; font-size: 20px; }
+        .rating-count { color: var(--text-light); font-size: 14px; }
+
+        .price-row { margin-bottom: 20px; }
+        .price-row .amount { font-size: 42px; font-weight: 800; }
+        .price-row .currency { font-size: 20px; font-weight: 400; color: var(--text-light); }
+
+        .description { color: var(--text-light); line-height: 1.6; margin-bottom: 30px; font-size: 15px; }
+
+        .stock-status { display: flex; align-items: center; gap: 8px; color: #10b981; font-weight: 600; font-size: 14px; margin-bottom: 30px; }
+        .stock-status-negative { display: flex; align-items: center; gap: 8px; color: #B01C1C; font-weight: 600; font-size: 14px; margin-bottom: 30px; }
+
+        .dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; }
+        .bot { width: 8px; height: 8px; background: #B01C1C; border-radius: 50%; }
+
+
+
+        /* Action Buttons */
+        .action-btns { display: flex; gap: 15px; margin-bottom: 40px; }
+        .btn-main-add {
+            flex: 1; background: var(--primary-red); color: white; border: none;
+            padding: 16px; border-radius: 10px; font-weight: 700; font-size: 16px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-view-cart {
+            padding: 16px 30px; border: 1px solid #ddd; background: white;
+            border-radius: 10px; font-weight: 600; cursor: pointer; color: var(--text-dark);
+        }
+
+        /* Delivery Card */
+        .delivery-card { background: #fafafa; padding: 20px; border-radius: 12px; }
+        .delivery-card h4 { font-weight: 800; font-size: 15px; margin-bottom: 5px; }
+        .delivery-card p { color: var(--text-light); font-size: 13px; line-height: 1.4; }
+
+        @media (max-width: 992px) {
+            .product-main { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+
+    <header>
+        <div class="container header-grid">
+            <a href="/" class="logo">ANOR MARKET</a>
+            <a href="/category/" class="btn-categories" style="text-decoration: none;">
+                <i class='bx bx-menu'></i> Categories
+            </a>
+            <div class="search-wrapper">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <i class='bx bx-heart'></i>
+                <a href="/cart/detail/" >
+                <div style="position: relative;">
+                    <i class='bx bx-shopping-bag'></i>
+                    <span style="position: absolute; top:-5px; left:-10px; background:var(--primary-red); color:white; font-size:10px; width:18px; height:18px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid white;">{{ cart_total_count }}</span>
+                </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+
+    <main class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/" class="back-link"><i class='bx bx-left-arrow-alt'></i> Back to Products</a>
+        </div>
+
+        <!-- Product Section -->
+        <div class="product-main">
+            <!-- Left: Image -->
+            <div class="product-image-container">
+                <img src="{{ product.image.url }}" alt="Shaurma">
+            </div>
+
+            <!-- Right: Info (изображение_4.jpg ga asosan) -->
+            <div class="product-info">
+                <span class="category">{{ product.category.name }}</span>
+                <h1>{{ product.name }}</h1>
+
+                 <div class="rating">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.stars %}
+                                <i class='bx bxs-star'></i>
+                            {% else %}
+                                <i class='bx bx-star'></i>
+                            {% endif %}
+                        {% endfor %}
+                        <span>({{ product.stars|default:0 }})</span>
+                 </div>
+
+                <div class="price-row">
+                    <span class="amount">{{ product.price }}</span>
+                    <span class="currency">sum</span>
+                </div>
+
+                <p class="description">
+                    {{ product.description }}
+                </p>
+                {% if product.status %}
+                <div class="stock-status">
+                    <div class="dot"></div>
+                    Available
+                </div>
+                {% else %}
+                <div class="stock-status-negative">
+                    <div class="bot"></div>
+                    Unavailable
+                </div>
+                {% endif %}
+
+                <div class="action-btns">
+                    <form action="/cart/" method="POST" style="flex: 1; display: flex;">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <input type="hidden" name="quantity" value="1">
+
+                        <button type="submit" class="btn-main-add">
+                            <i class='bx bx-cart-add'></i> Add to Cart
+                        </button>
+                    </form>
+
+                    <a href="/cart/detail/" style="text-decoration: none;">
+                        <button class="btn-view-cart">View Cart</button>
+                    </a>
+                </div>
+
+                <div class="delivery-card">
+                    <h4>Sold by ANOR MARKET</h4>
+                    <p>Fast delivery across Tashkent. Free delivery on orders over 100,000 sum.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | ANOR MARKET</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #B01C1C;
+            --text-dark: #1a1a1a;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --border-color: #e5e7eb;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--white); color: var(--text-dark); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Page Header --- */
+        .page-header { padding: 40px 0 20px; }
+        .breadcrumb { font-size: 14px; color: var(--text-light); margin-bottom: 10px; display: flex; gap: 8px; }
+        .breadcrumb a { text-decoration: none; color: var(--text-light); }
+        .breadcrumb span { color: var(--text-dark); font-weight: 600; }
+
+        .title-section { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .title-section h1 { font-size: 36px; font-weight: 800; }
+        .items-count { color: var(--text-light); font-size: 16px; margin-top: 5px; }
+
+        /* --- Filter Scroll (Rasmga asosan) --- */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 0 25px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .filter-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        .filter-pill {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background: white;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        .filter-pill:hover { border-color: var(--primary-red); color: var(--primary-red); }
+        .filter-pill.active { background: var(--primary-red); color: white; border-color: var(--primary-red); }
+
+        .filter-btn-main {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        /* --- Category Grid --- */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            position: relative;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .cat-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .category-card:hover .cat-img { transform: scale(1.1); }
+
+        .cat-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .cat-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .cat-info span { font-size: 13px; opacity: 0.8; font-weight: 400; }
+
+        .cat-icon-circle {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+        .category-card:hover .cat-icon-circle { background: var(--primary-red); }
+
+        /* --- Adaptive --- */
+        @media (max-width: 768px) {
+            .title-section { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .category-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .category-card { height: 160px; }
+            .cat-info h3 { font-size: 16px; }
+            .filter-btn-main { display: none; }
+        }
+    </style>
+</head>
+<div style="background-color: #B01C1C; color: white; padding: 8px 0; font-size: 13px; font-family: 'Inter', sans-serif;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; gap: 20px;">
+            <span style="display: flex; align-items: center; gap: 5px;"><i class='bx bx-phone'></i> +998 97 476-54-00</span>
+            <span style="display: flex; align-items: center; gap: 5px;"><i class='bx bx-envelope'></i> anormarket@gmail.com</span>
+            <span style="display: flex; align-items: center; gap: 5px;"><i class='bx bx-map'></i> Tashkent, Uzbekistan</span>
+        </div>
+        <div style="display: flex; gap: 15px;">
+            <a href="#" style="color: white; text-decoration: none;">About Us</a>
+            <a href="#" style="color: white; text-decoration: none;">Stores</a>
+            <a href="#" style="color: white; text-decoration: none;">FAQ</a>
+        </div>
+    </div>
+</div>
+
+<header style="background: white; border-bottom: 1px solid #e5e7eb; padding: 15px 0; position: sticky; top: 0; z-index: 1000; font-family: 'Inter', sans-serif;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 30px;">
+
+        <a href="/" style="font-size: 26px; font-weight: 800; color: #B01C1C; text-decoration: none; text-transform: uppercase;">
+            ANOR MARKET
+        </a>
+
+        <button style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border: 1.5px solid #e5e7eb; border-radius: 8px; background: white; font-weight: 700; cursor: pointer; color: #1a1a1a;">
+            <i class='bx bx-menu-alt-left' style="font-size: 20px;"></i> Categories
+        </button>
+
+        <div style="position: relative; width: 100%; max-width: 600px;">
+            <i class='bx bx-search' style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #6b7280; font-size: 18px;"></i>
+            <input type="text" placeholder="Search products..." style="width: 100%; padding: 12px 20px 12px 45px; border-radius: 50px; border: none; background: #f3f4f6; outline: none; font-size: 14px;">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 25px;">
+            <a href="/category/" style="color: #1a1a1a; text-decoration: none; font-size: 24px;"><i class='bx bx-heart'></i></a>
+
+            <a href="/cart/detail/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1a1a1a;">
+                <div style="position: relative; display: flex; align-items: center;">
+                    <i class='bx bx-shopping-bag' style="font-size: 28px;"></i>
+                    <span style="position: absolute; top: -8px; right: -8px; background: #B01C1C; color: white; font-size: 11px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white;">{{ cart_total_count }}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                </div>
+            </a>
+        </div>
+    </div>
+</header>
+<body>
+
+    <main class="container">
+        <div class="page-header">
+            <div class="breadcrumb">
+                <a href="/">Home</a> / <span>Categories</span>
+            </div>
+            <div class="title-section">
+                <div>
+                    <h1>Categories</h1>
+                    <p class="items-count">{{ category.count }} groups available</p>
+                </div>
+                <button class="filter-btn-main">
+                    <i class='bx bx-slider-alt'></i> Filter
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-container" >
+            <a href="/category/" class="filter-pill active">All</a>
+            {% for c in category %}
+                <a  href="/category/{{ c.id }}" class="filter-pill">{{ c.name }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="category-grid">
+            {% for c in category %}
+            <a href="/category/" class="category-card">
+                <img src="{{ c.image.url }}" alt="{{ c.name }}" class="cat-img">
+                <div class="cat-overlay">
+                    <div class="cat-info">
+                        <h3>{{ c.name }}</h3>
+                        <span>Explore Collection</span>
+                    </div>
+                    <div class="cat-icon-circle">
+                        <i class='bx bx-chevron-right'></i>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+
+</body>
+</html>
