@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-vercel-fallback-key-12345'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.getenv("DEBUG", 1)))
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","*").split(",")
 
 
 # Application definition
